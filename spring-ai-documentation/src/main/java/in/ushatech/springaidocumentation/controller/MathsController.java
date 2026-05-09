@@ -2,10 +2,12 @@ package in.ushatech.springaidocumentation.controller;
 
 import in.ushatech.springaidocumentation.entity.Question;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 
 
 @RestController
@@ -38,11 +40,12 @@ public class MathsController {
     }
 
     @GetMapping("/questionChatResponse")
-    public Question questionFluentApiWithChatResponse(@RequestParam String userInput) { // spring automatically maps request parameters to userInput So @RequestParam is not mandatory but good to have
+    public List<Question> questionFluentApiWithChatResponse(@RequestParam String userInput) { // spring automatically maps request parameters to userInput So @RequestParam is not mandatory but good to have
         return this.chatClient.prompt()
                 .user(userInput)// this is  fluent api
                 .call()
-                .entity(Question.class);
+                .entity(new ParameterizedTypeReference<List<Question>>() {
+                });
     }
 
 
