@@ -13,12 +13,20 @@ public class SpringAiDocumentationApplication {
         SpringApplication.run(SpringAiDocumentationApplication.class, args);
     }
 
+
     @Bean
-    public CommandLineRunner commandLineRunner(ChatClient.Builder builder) {
+    public CommandLineRunner devToolsTester() {
         return args -> {
-            ChatClient chatClient = builder.build();
-            String response = chatClient.prompt("Tell me an easy maths question").call().content();
-            System.out.println(response);
+            // change text to test if the dev tools working fine
+            System.out.println("Hello World!");
         };
     }
+//    @Bean
+//    public CommandLineRunner commandLineRunner(ChatClient.Builder builder) {
+//        return args -> {
+//            ChatClient chatClient = builder.build();
+//            String response = chatClient.prompt("Tell me an easy maths question").call().content();
+//            System.out.println(response);
+//        };
+//    }
 }
