@@ -15,7 +15,7 @@ public class SpringAiDocumentationApplication {
 
 
     @Bean
-    public CommandLineRunner devToolsTester(ChatClient.Builder builder) {
+    public CommandLineRunner devToolsTester() {
         return args -> {
             // change text to test if the dev tools working fine
             System.out.println("Hello World!");
