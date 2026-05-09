@@ -14,13 +14,13 @@ import org.springframework.context.annotation.Primary;
 public class ChatClientConfig {
 
     @Bean
-    @Qualifier("openAPIChatClient")
+    @Primary
     public ChatClient openAiChatClient(OpenAiChatModel chatModel) {
         return chatClientWithDefaultSystemPrompt(chatModel);
     }
 
     @Bean
-    @Primary
+    @Qualifier("ollamaChatClient")
     public ChatClient ollamaChatClient(OllamaChatModel chatModel) {
         return chatClientWithDefaultSystemPrompt(chatModel);
     }

@@ -3,27 +3,14 @@ package in.ushatech.springaidocumentation.prompts;
 public enum SystemPrompts {
 
     QUESTION_GENERATOR("""
-        Generate mathematics questions.
-        
-        Rules:
-        1. If previous answer is correct, increase difficulty.
-        2. If previous answer is incorrect, decrease difficulty.
-        3. Return ONLY valid JSON.
+        Return ONLY valid JSON array for Maths Questions.
         
         Example:
-        {
-            {
-                "questionText": "What is 25 multiplied by 12?"
-            },
-            {
-                "questionText": "What is 3 multiplied by 1?"
-            }
-        }
-        
-        No explanation.
-        No markdown.
-        No extra text.
-        No code.
+        [
+          {
+            "questionText":"What is 2+2?"
+          }
+        ]
         """);
     /** use with llm models
     QUESTION_GENERATOR("""

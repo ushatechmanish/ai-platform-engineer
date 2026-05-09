@@ -1,8 +1,10 @@
 package in.ushatech.springaidocumentation.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 import java.util.Map;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public record Question(
         String questionText){}
 
