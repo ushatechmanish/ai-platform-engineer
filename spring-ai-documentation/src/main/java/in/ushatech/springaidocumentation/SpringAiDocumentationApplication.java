@@ -17,7 +17,7 @@ public class SpringAiDocumentationApplication {
     public CommandLineRunner commandLineRunner(ChatClient.Builder builder) {
         return args -> {
             ChatClient chatClient = builder.build();
-            String response = chatClient.prompt("Tell me a maths question").call().content();
+            String response = chatClient.prompt("Tell me an easy maths question").call().content();
             System.out.println(response);
         };
     }
