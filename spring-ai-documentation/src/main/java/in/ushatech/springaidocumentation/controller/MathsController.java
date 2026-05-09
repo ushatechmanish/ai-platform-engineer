@@ -1,6 +1,8 @@
 package in.ushatech.springaidocumentation.controller;
 
 import in.ushatech.springaidocumentation.entity.Question;
+import in.ushatech.springaidocumentation.entity.QuestionResponse;
+import org.springframework.ai.chat.client.AdvisorParams;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.converter.BeanOutputConverter;
 import org.springframework.core.ParameterizedTypeReference;
@@ -41,21 +43,27 @@ public class MathsController {
     }
 
     @GetMapping("/questionChatResponse")
-    public List<Question> questionFluentApiWithChatResponse(@RequestParam String userInput) { // spring automatically maps request parameters to userInput So @RequestParam is not mandatory but good to have
-       // optimization for smaller models
-        BeanOutputConverter<List<Question>> converter =
-                new BeanOutputConverter<>(
-                        new ParameterizedTypeReference<List<Question>>() {}
-                );
+    public QuestionResponse questionFluentApiWithChatResponse(@RequestParam("userInput") String userInput) { // spring automatically maps request parameters to userInput So @RequestParam is not mandatory but good to have
 
-        String format = converter.getFormat();
+        // because of error  "message": "400: Invalid schema for response_format 'json_schema': schema must be a JSON Schema of 'type: \"object\"', got 'type: \"array\"'.",
+        // We need to have single object a wrapper DTO , so we need to change List<Question> to QuestionResponses having List<Question>
 
-
+        /**
+         * {
+         *   "questions": [
+         *     {
+         *       "questionText": "..."
+         *     }
+         *   ]
+         * }
+         * is expected Now using a dto wrapper works
+         * */
+        BeanOutputConverter<QuestionResponse> converter = new BeanOutputConverter<>(QuestionResponse.class);
         return this.chatClient.prompt()
-                .user(userInput +  "\n" +format)// this is  fluent api and optimized for smaller models
+                .user(userInput)// this is  fluent api , removed formatter as it will increase tokens and is not required as we are using advisor
+                .advisors(AdvisorParams.ENABLE_NATIVE_STRUCTURED_OUTPUT)//asks provider/OpenAI for schema-safe JSON
                 .call()
-                .entity(new ParameterizedTypeReference<List<Question>>() {
-                });
+                .entity(converter); // use convertor instead of ParameterizedTypeReference . This is the cleanest approach to use with spring-ai
     }
 
 
