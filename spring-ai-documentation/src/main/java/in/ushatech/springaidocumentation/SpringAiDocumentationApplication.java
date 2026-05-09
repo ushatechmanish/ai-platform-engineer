@@ -13,6 +13,14 @@ public class SpringAiDocumentationApplication {
         SpringApplication.run(SpringAiDocumentationApplication.class, args);
     }
 
+
+    @Bean
+    public CommandLineRunner devToolsTester(ChatClient.Builder builder) {
+        return args -> {
+            // change text to test if the dev tools working fine
+            System.out.println("Hello World!");
+        };
+    }
 //    @Bean
 //    public CommandLineRunner commandLineRunner(ChatClient.Builder builder) {
 //        return args -> {
