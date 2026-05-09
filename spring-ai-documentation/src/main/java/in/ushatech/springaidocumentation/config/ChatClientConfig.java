@@ -26,7 +26,7 @@ public class ChatClientConfig {
     }
 
     private ChatClient chatClientWithDefaultSystemPrompt(ChatModel chatModel) {
-        return ChatClient.builder(chatModel).defaultSystem(SystemPrompts.AI_TEACHER.getPromptText()).build();
+        return ChatClient.builder(chatModel).defaultSystem(SystemPrompts.QUESTION_GENERATOR.getPromptText()).build();
     }
 
 
