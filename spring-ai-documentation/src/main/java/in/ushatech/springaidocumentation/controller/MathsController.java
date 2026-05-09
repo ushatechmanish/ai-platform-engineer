@@ -15,7 +15,7 @@ public class MathsController {
     }
 
     /**
-     * Usage : curl http://localhost:8080/question?userInput="what is 1+1"
+     * Usage : curl -X GET --location "http://localhost:8080/question?userInput=%22what+is+1+1%22"
      * */
     @GetMapping("/question")
     public String question(String userInput) { // spring automatically maps request parameters to userInput So @RequestParam is not mandatory but good to have
