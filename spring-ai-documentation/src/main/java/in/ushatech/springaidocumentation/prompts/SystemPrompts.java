@@ -1,9 +1,9 @@
-package in.ushatech.springaidocumentation;
+package in.ushatech.springaidocumentation.prompts;
 
 public enum SystemPrompts {
 
     QUESTION_GENERATOR("""
-        Generate one mathematics question.
+        Generate mathematics questions.
         
         Rules:
         1. If previous answer is correct, increase difficulty.
@@ -12,7 +12,12 @@ public enum SystemPrompts {
         
         Example:
         {
-          "questionText": "What is 25 multiplied by 12?"
+            {
+                "questionText": "What is 25 multiplied by 12?"
+            },
+            {
+                "questionText": "What is 3 multiplied by 1?"
+            }
         }
         
         No explanation.

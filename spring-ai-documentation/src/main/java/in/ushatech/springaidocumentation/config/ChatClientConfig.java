@@ -1,6 +1,6 @@
 package in.ushatech.springaidocumentation.config;
 
-import in.ushatech.springaidocumentation.SystemPrompts;
+import in.ushatech.springaidocumentation.prompts.SystemPrompts;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.ollama.OllamaChatModel;
