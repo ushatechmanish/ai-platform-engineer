@@ -3,6 +3,7 @@ package in.ushatech.springaidocumentation.controller;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -19,7 +20,16 @@ public class MathsController {
      * */
     @GetMapping("/question")
     public String question(String userInput) { // spring automatically maps request parameters to userInput So @RequestParam is not mandatory but good to have
-        return this.chatClient.prompt(userInput)
+        return this.chatClient.prompt(userInput)// this is not fluent api
+                .call()
+                .content();
+    }
+
+    @GetMapping("/questionFluent")
+    public String questionFluentApi(@RequestParam String userInput) { // spring automatically maps request parameters to userInput So @RequestParam is not mandatory but good to have
+        return this.chatClient.prompt()
+                .system("Act  as a Maths Tutor who is teaching someone and provide question based on the user's ability. You should ask at least one question and then depending on the answer , if the question is correct ask a more difficult question else ask lower level questions")
+                .user(userInput)// this is  fluent api
                 .call()
                 .content();
     }
