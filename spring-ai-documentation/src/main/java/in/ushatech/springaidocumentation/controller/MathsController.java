@@ -10,8 +10,8 @@ public class MathsController {
 
     ChatClient chatClient;
 
-    public MathsController(ChatClient.Builder chatClientBuilder  ) {
-        chatClient = chatClientBuilder.build();
+    public MathsController(ChatClient chatClient) {
+       this.chatClient = chatClient;
     }
 
     /**
