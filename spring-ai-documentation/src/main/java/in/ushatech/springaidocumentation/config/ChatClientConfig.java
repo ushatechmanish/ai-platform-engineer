@@ -1,6 +1,8 @@
 package in.ushatech.springaidocumentation.config;
 
+import in.ushatech.springaidocumentation.SystemPrompts;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,13 +16,17 @@ public class ChatClientConfig {
     @Bean
     @Qualifier("openAPIChatClient")
     public ChatClient openAiChatClient(OpenAiChatModel chatModel) {
-        return ChatClient.create(chatModel);
+        return chatClientWithDefaultSystemPrompt(chatModel);
     }
 
     @Bean
     @Primary
     public ChatClient ollamaChatClient(OllamaChatModel chatModel) {
-        return ChatClient.create(chatModel);
+        return chatClientWithDefaultSystemPrompt(chatModel);
+    }
+
+    private ChatClient chatClientWithDefaultSystemPrompt(ChatModel chatModel) {
+        return ChatClient.builder(chatModel).defaultSystem(SystemPrompts.AI_TEACHER.getPromptText()).build();
     }
 
 
